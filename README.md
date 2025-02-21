@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
 First, run the development server:
@@ -16,21 +14,27 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Updated Task Breakdown
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Setup Project (1 hour)
+2. Create Folder Structure (30 minutes)
+3. Build House Component (2.5 hours)
+4. Implement HouseList and HouseControl Components (2 hours)
+5. Implement Weather Component (2 hours)
+6. Create UI Components (1.5 hours)
+7. Develop Custom Hooks (3 hours)
+8. Connect Components to State (2 hours)
+9. Add Local Storage Support (1 hour)
+10. Test and Debug (2 hours)
 
-## Learn More
+Total: 17 hours
 
-To learn more about Next.js, take a look at the following resources:
+### Additional Enhancements
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Add smooth animations/transitions (2 hours)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Implement drag & drop functionality (3 hours)
 
-## Deploy on Vercel
+Allow users to change color of individual floors (1.5 hours)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Write tests for components and hooks (3 hours)
