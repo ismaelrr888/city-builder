@@ -22,8 +22,8 @@ const HouseItem: React.FC<HouseItemProps> = ({
       <div>
         <h2 className="text-xl font-bold mb-4">{"House -"}</h2>
 
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-4 flex-wrap">
             <NumberFloors house={house} />
 
             <label className="block font-semibold">Color:</label>
