@@ -31,7 +31,7 @@ const Roof: React.FC = () => (
 
 export const House: React.FC<HouseProps> = ({ house }) => {
   return (
-    <div key={house.id}>
+    <div key={house.id} className="flex flex-col self-end">
       <Roof />
 
       <div
