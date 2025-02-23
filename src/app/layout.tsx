@@ -20,12 +20,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header className="bg-gray-100 p-4 border border-gray-300">
-          <Header.Root>
-            <Header.Content className="text-red-700 font-semibold text-xl">
-              City Builder
-            </Header.Content>
-          </Header.Root>
+        <Header className="bg-gray-100 p-4 border border-gray-300 font-semibold text-red-500 text-2xl">
+          City Builder
         </Header>
         {children}
       </body>

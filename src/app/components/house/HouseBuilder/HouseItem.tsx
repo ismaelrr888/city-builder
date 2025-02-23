@@ -3,6 +3,7 @@ import { House } from "@/types/house";
 import { useHouses } from "@/app/context/houses/HousesContext";
 import { Button } from "@/app/ui/common/button";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { NumberFloors } from "./NumberFloors";
 
 interface HouseItemProps {
   house: House;
@@ -10,26 +11,18 @@ interface HouseItemProps {
 }
 
 const HouseItem: React.FC<HouseItemProps> = ({
-  house: { numberFloors, color, id },
+  house,
   handleOpenConfirmDialog,
 }) => {
   const { handleUpdateHouse } = useHouses();
+  const { numberFloors, color, id } = house;
 
   return (
     <li>
       <div>
         <h2 className="text-xl font-bold mb-4">{"House -"}</h2>
 
-        <label className="block mb-2 font-semibold">Floors:</label>
-        <input
-          type="number"
-          name="floors"
-          value={numberFloors}
-          onChange={(e) =>
-            handleUpdateHouse(id, parseInt(e.target.value), color)
-          }
-          className="block w-full px-3 py-2 mb-4 border rounded"
-        />
+        <NumberFloors house={house} />
 
         <label className="block mb-2 font-semibold">Color:</label>
         <select
