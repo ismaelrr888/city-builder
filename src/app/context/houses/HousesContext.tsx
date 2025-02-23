@@ -34,7 +34,13 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [houses, dispatch] = useReducer(reducer, initialState);
 
-  const handleAddHouse = ({ numberFloors = 3, color = "#a65f00" }) => {
+  const handleAddHouse = ({
+    numberFloors = 3,
+    color = "#a65f00",
+  }: {
+    numberFloors?: number;
+    color?: string;
+  }) => {
     const house = { id: uuidv4(), numberFloors, color };
     dispatch({ type: ADD_HOUSE, house });
   };

@@ -22,22 +22,28 @@ const HouseItem: React.FC<HouseItemProps> = ({
       <div>
         <h2 className="text-xl font-bold mb-4">{"House -"}</h2>
 
-        <NumberFloors house={house} />
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <NumberFloors house={house} />
 
-        <label className="block mb-2 font-semibold">Color:</label>
-        <input
-          type="color"
-          value={color}
-          onChange={(e) => handleUpdateHouse(id, numberFloors, e.target.value)}
-        />
+            <label className="block font-semibold">Color:</label>
+            <input
+              type="color"
+              value={color}
+              onChange={(e) =>
+                handleUpdateHouse(id, numberFloors, e.target.value)
+              }
+            />
+          </div>
 
-        <div className="flex gap-2 mt-4">
-          <Button onClick={() => handleAddHouse({ numberFloors, color })}>
-            <DocumentDuplicateIcon className="w-5" />
-          </Button>
-          <Button onClick={() => handleOpenConfirmDialog(id)}>
-            <TrashIcon className="w-5" />
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={() => handleAddHouse({ numberFloors, color })}>
+              <DocumentDuplicateIcon className="w-5" />
+            </Button>
+            <Button onClick={() => handleOpenConfirmDialog(id)}>
+              <TrashIcon className="w-5" />
+            </Button>
+          </div>
         </div>
       </div>
     </li>
