@@ -47,16 +47,19 @@ export const HouseBuilder: React.FC = () => {
           <HomeIcon className="w-5" />
           Build a new house
         </Button>
-        <ConfirmDialog open={showConfirmDialog}>
+        <ConfirmDialog
+          open={showConfirmDialog}
+          onOpenChange={setShowConfirmDialog}
+        >
           <DialogTitle>Are you sure you want to delete this house?</DialogTitle>
           <DialogClose>
-            <button
-              className="absolute top-2 right-2 inline-flex items-center justify-center rounded-full h-6 w-6 bg-gray-200  focus:outline-none focus-visible:ring-2 "
+            <Button
+              className="absolute top-2 right-2 rounded-full p-1.5"
               aria-label="Close"
               onClick={handleCloseConfirmDialog}
             >
               <XMarkIcon className="h-5 w-5" />
-            </button>
+            </Button>
           </DialogClose>
           <div className="flex justify-end gap-4 mt-4">
             <Button className="bg-red-500 text-slate-50" onClick={handleDelte}>
