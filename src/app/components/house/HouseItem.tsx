@@ -13,7 +13,7 @@ const HouseItem: React.FC<HouseItemProps> = ({
 
   return (
     <li>
-      <div className="p-4 bg-white rounded shadow-md">
+      <div>
         <h2 className="text-xl font-bold mb-4">{"House -"}</h2>
 
         <label className="block mb-2 font-semibold">Floors:</label>

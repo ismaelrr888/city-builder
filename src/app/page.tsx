@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <main>
         <HousesProvider>
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2 p-4">
             <HouseBuilder />
             <HousesPreview />
           </div>

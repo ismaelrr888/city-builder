@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header className="bg-gray-200 p-4 border border-gray-300">
+        <Header className="bg-gray-100 p-4 border border-gray-300">
           <Header.Root>
             <Header.Content className="text-red-700 font-semibold text-xl">
               City Builder
