@@ -6,12 +6,14 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 
 interface HouseItemProps {
   house: House;
+  handleOpenConfirmDialog: (id: string) => void;
 }
 
 const HouseItem: React.FC<HouseItemProps> = ({
   house: { numberFloors, color, id },
+  handleOpenConfirmDialog,
 }) => {
-  const { handleUpdateHouse, handleDeleteHouse } = useHouses();
+  const { handleUpdateHouse } = useHouses();
 
   return (
     <li>
@@ -42,7 +44,7 @@ const HouseItem: React.FC<HouseItemProps> = ({
           <option value="orange">Orange</option>
         </select>
 
-        <Button onClick={() => handleDeleteHouse(id)}>
+        <Button onClick={() => handleOpenConfirmDialog(id)}>
           <TrashIcon className="w-5" />
         </Button>
       </div>

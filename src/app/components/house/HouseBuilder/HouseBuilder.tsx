@@ -1,11 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import HouseItem from "./HouseItem";
 import { useHouses } from "@/app/context/houses/HousesContext";
 import { Button } from "@/app/ui/common/button";
 import { HomeIcon } from "@heroicons/react/20/solid";
+import { ConfirmDialog } from "@/app/ui/common/Dialog/dialog";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export const HouseBuilder: React.FC = () => {
-  const { houses, handleAddHouse } = useHouses();
+  const { houses, handleAddHouse, handleDeleteHouse } = useHouses();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [houseId, setHouseId] = useState<string>("");
+
+  const handleOpenConfirmDialog = (id: string) => {
+    setHouseId(id);
+    setShowConfirmDialog(true);
+  };
+
+  const handleCloseConfirmDialog = () => {
+    setShowConfirmDialog(false);
+  };
+
+  const handleDelte = () => {
+    handleDeleteHouse(houseId);
+    setShowConfirmDialog(false);
+  };
 
   return (
     <div className="rounded shadow-md flex flex-col self-start">
@@ -15,7 +33,11 @@ export const HouseBuilder: React.FC = () => {
       <div className="p-4">
         <ul>
           {houses.map((house) => (
-            <HouseItem key={house.id} house={house} />
+            <HouseItem
+              key={house.id}
+              house={house}
+              handleOpenConfirmDialog={handleOpenConfirmDialog}
+            />
           ))}
         </ul>
       </div>
@@ -24,6 +46,17 @@ export const HouseBuilder: React.FC = () => {
           <HomeIcon className="w-5" />
           Build a new house
         </Button>
+        <ConfirmDialog
+          open={showConfirmDialog}
+          handleCloseConfirmDialog={handleCloseConfirmDialog}
+        >
+          <DialogTitle>Are you sure you want to delete this house?</DialogTitle>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button className="bg-red-500 text-slate-50" onClick={handleDelte}>
+              Delete
+            </Button>
+          </div>
+        </ConfirmDialog>
       </div>
     </div>
   );
