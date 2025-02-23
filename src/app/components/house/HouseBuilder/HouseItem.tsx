@@ -25,17 +25,11 @@ const HouseItem: React.FC<HouseItemProps> = ({
         <NumberFloors house={house} />
 
         <label className="block mb-2 font-semibold">Color:</label>
-        <select
-          name="color"
+        <input
+          type="color"
           value={color}
           onChange={(e) => handleUpdateHouse(id, numberFloors, e.target.value)}
-          className="block w-full px-3 py-2 mb-4 border rounded"
-        >
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="orange">Orange</option>
-        </select>
+        />
 
         <Button onClick={() => handleOpenConfirmDialog(id)}>
           <TrashIcon className="w-5" />
