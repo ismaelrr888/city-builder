@@ -6,7 +6,7 @@ export const HouseBuilder: React.FC = () => {
   const { houses, handleAddHouse } = useHouses();
 
   return (
-    <div className="rounded shadow-md">
+    <div className="rounded shadow-md flex flex-col self-start">
       <div className="bg-gray-100 rounded-t p-4 mb-4 ">
         <h2 className="font-semibold">Houses List</h2>
       </div>
