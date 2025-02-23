@@ -1,9 +1,10 @@
 import React from "react";
 import { House } from "@/types/house";
-import { useHouses } from "@/app/context/houses/HousesContext";
+// import { useHouses } from "@/app/context/houses/HousesContext";
 import { Button } from "@/app/ui/common/button";
 import { DocumentDuplicateIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { NumberFloors } from "./NumberFloors";
+import { useHouses } from "@/app/context/houses/HousesContext";
 
 interface HouseItemProps {
   house: House;
@@ -14,8 +15,8 @@ const HouseItem: React.FC<HouseItemProps> = ({
   house,
   handleOpenConfirmDialog,
 }) => {
-  const { handleUpdateHouse, handleAddHouse } = useHouses();
-  const { numberFloors, color, id } = house;
+  const { handleUpdateColorHouse, handleDuplicateHouse } = useHouses();
+  const { id, color } = house;
 
   return (
     <li>
@@ -30,14 +31,12 @@ const HouseItem: React.FC<HouseItemProps> = ({
             <input
               type="color"
               value={color}
-              onChange={(e) =>
-                handleUpdateHouse(id, numberFloors, e.target.value)
-              }
+              onChange={(e) => handleUpdateColorHouse(id, e.target.value)}
             />
           </div>
 
           <div className="flex gap-2">
-            <Button onClick={() => handleAddHouse({ numberFloors, color })}>
+            <Button onClick={() => handleDuplicateHouse(house)}>
               <DocumentDuplicateIcon className="w-5" />
             </Button>
             <Button onClick={() => handleOpenConfirmDialog(id)}>

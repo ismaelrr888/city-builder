@@ -43,7 +43,7 @@ export const HouseBuilder: React.FC = () => {
         </ul>
       </div>
       <div className="bg-gray-100 rounded-b p-4 flex justify-center">
-        <Button onClick={() => handleAddHouse({})}>
+        <Button onClick={handleAddHouse}>
           <HomeIcon className="w-5" />
           Build a new house
         </Button>

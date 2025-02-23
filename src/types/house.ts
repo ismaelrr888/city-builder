@@ -1,5 +1,9 @@
 export interface House {
   id: string;
-  numberFloors: number;
+  floors: Floor[];
+  color: string;
+}
+
+export interface Floor {
   color: string;
 }

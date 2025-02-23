@@ -10,7 +10,7 @@ const MIN = process.env.NEXT_PUBLIC_MIN_FLOORS || 1;
 const MAX = process.env.NEXT_PUBLIC_MAX_FLOORS || 30;
 
 export const NumberFloors: React.FC<NumberFloorsProps> = ({
-  house: { numberFloors, color, id },
+  house: { id, floors, color },
 }) => {
   const { handleUpdateHouse } = useHouses();
 
@@ -21,7 +21,7 @@ export const NumberFloors: React.FC<NumberFloorsProps> = ({
         <input
           type="number"
           name="floors"
-          value={numberFloors}
+          value={floors.length}
           max={MAX}
           min={MIN}
           onChange={(e) =>
@@ -33,7 +33,7 @@ export const NumberFloors: React.FC<NumberFloorsProps> = ({
       <Slider
         max={+MAX}
         min={+MIN}
-        value={[numberFloors]}
+        value={[floors.length]}
         onValueChange={(value) => {
           const [numberFloors] = value;
           handleUpdateHouse(id, numberFloors, color);

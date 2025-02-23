@@ -1,3 +1,4 @@
+import { useHouses } from "@/app/context/houses/HousesContext";
 import { House as HoseType } from "@/types/house";
 
 interface HouseProps {
@@ -8,18 +9,31 @@ const Window: React.FC = () => (
   <div className="w-8 h-10 bg-white border-[1px] border-black" />
 );
 
-const Floor: React.FC = () => (
-  <div className="flex justify-around">
-    <Window />
-    <Window />
-  </div>
-);
+const Floor: React.FC<{
+  color: string;
+  onChangeColor: () => void;
+}> = ({ color, onChangeColor }) => {
+  return (
+    <>
+      <div
+        className="flex justify-around p-2"
+        style={{ backgroundColor: color }}
+      >
+        <Window />
+        <Window />
+      </div>
+    </>
+  );
+};
 
 const Door: React.FC = () => (
   <div className="w-8 h-12 bg-white border-2 border-black self-end mt-4" />
 );
-const FirstFloor: React.FC = () => (
-  <div className="flex justify-around">
+const FirstFloor: React.FC<{ color: string }> = ({ color }) => (
+  <div
+    className="flex justify-around pt-2 px-2"
+    style={{ backgroundColor: color }}
+  >
     <Window />
     <Door />
   </div>
@@ -30,19 +44,27 @@ const Roof: React.FC = () => (
 );
 
 export const House: React.FC<HouseProps> = ({ house }) => {
+  const { handleUpdateColorFloor } = useHouses();
   return (
     <div key={house.id} className="flex flex-col self-end">
       <Roof />
 
-      <div
-        className="flex flex-col w-[130px] gap-4 pt-4 px-1 border-2 border-black"
-        style={{ background: house.color }}
-      >
-        {Array.from({ length: house.numberFloors - 1 }).map((_, index) => (
-          <Floor key={index} />
-        ))}
-
-        <FirstFloor />
+      <div className="flex flex-col w-[130px] border-2 border-black">
+        {house.floors.map((floor, index) => {
+          if (index === house.floors.length - 1) {
+            return <FirstFloor key={index} color={floor.color} />;
+          } else {
+            return (
+              <Floor
+                key={index}
+                color={floor.color}
+                onChangeColor={() =>
+                  handleUpdateColorFloor(house.id, "blue", index)
+                }
+              />
+            );
+          }
+        })}
       </div>
     </div>
   );

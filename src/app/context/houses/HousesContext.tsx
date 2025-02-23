@@ -6,7 +6,7 @@ import React, {
   useReducer,
   ReactNode,
   useCallback,
-  useEffect,
+  // useEffect,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { House } from "@/types/house";
@@ -17,12 +17,23 @@ import {
   UPDATE_HOUSE,
   DELETE_HOUSE,
   SET_HOUSES,
+  UPDATE_COLOR_HOUSE,
+  DUPLICATE_HOUSE,
+  UPDATE_COLOR_FLOOR,
 } from "./housesReducer";
+
 interface HousesContextProps {
   houses: House[];
-  handleAddHouse: (params: { numberFloors?: number; color?: string }) => void;
+  handleAddHouse: () => void;
   handleUpdateHouse: (id: string, numberFloors: number, color: string) => void;
   handleDeleteHouse: (id: string) => void;
+  handleUpdateColorHouse: (id: string, color: string) => void;
+  handleDuplicateHouse: (house: House) => void;
+  handleUpdateColorFloor: (
+    id: string,
+    color: string,
+    indexFloor: number
+  ) => void;
   onSerialize: () => void;
   onDeserialize: () => void;
 }
@@ -34,16 +45,32 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [houses, dispatch] = useReducer(reducer, initialState);
 
-  const handleAddHouse = ({
-    numberFloors = 3,
-    color = "#a65f00",
-  }: {
-    numberFloors?: number;
-    color?: string;
-  }) => {
-    const house = { id: uuidv4(), numberFloors, color };
-    dispatch({ type: ADD_HOUSE, house });
+  // #a65f00
+  const handleAddHouse = () => {
+    dispatch({
+      type: ADD_HOUSE,
+      house: { id: uuidv4(), floors: [{ color: "#a65f00" }], color: "#a65f00" },
+    });
   };
+
+  const handleDuplicateHouse = (house: House) => {
+    dispatch({
+      type: DUPLICATE_HOUSE,
+      house: { ...house, id: uuidv4() },
+    });
+  };
+
+  const handleUpdateColorFloor = (
+    id: string,
+    color: string,
+    indexFloor: number
+  ) => {
+    dispatch({ type: UPDATE_COLOR_FLOOR, id, color, indexFloor });
+  };
+
+  const handleUpdateColorHouse = useCallback((id: string, color: string) => {
+    dispatch({ type: UPDATE_COLOR_HOUSE, id, color });
+  }, []);
 
   const handleUpdateHouse = useCallback(
     (id: string, numberFloors: number, color: string) => {
@@ -67,19 +94,19 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onSerialize();
-    }, 600);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     onSerialize();
+  //   }, 600);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [houses]);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [houses]);
 
-  useEffect(() => {
-    onDeserialize();
-  }, []);
+  // useEffect(() => {
+  //   onDeserialize();
+  // }, []);
 
   return (
     <HousesContext.Provider
@@ -90,6 +117,9 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
         onSerialize,
         onDeserialize,
         handleDeleteHouse,
+        handleUpdateColorHouse,
+        handleDuplicateHouse,
+        handleUpdateColorFloor,
       }}
     >
       {children}
