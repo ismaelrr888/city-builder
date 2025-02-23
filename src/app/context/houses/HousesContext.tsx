@@ -6,7 +6,7 @@ import React, {
   useReducer,
   ReactNode,
   useCallback,
-  // useEffect,
+  useEffect,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { House } from "@/types/house";
@@ -94,19 +94,19 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     }
   };
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     onSerialize();
-  //   }, 600);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onSerialize();
+    }, 600);
 
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [houses]);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [houses]);
 
-  // useEffect(() => {
-  //   onDeserialize();
-  // }, []);
+  useEffect(() => {
+    onDeserialize();
+  }, []);
 
   return (
     <HousesContext.Provider
