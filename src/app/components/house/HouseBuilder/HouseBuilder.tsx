@@ -1,6 +1,8 @@
 import React from "react";
 import HouseItem from "./HouseItem";
 import { useHouses } from "@/app/context/houses/HousesContext";
+import { Button } from "@/app/ui/common/button";
+import { HomeIcon } from "@heroicons/react/20/solid";
 
 export const HouseBuilder: React.FC = () => {
   const { houses, handleAddHouse } = useHouses();
@@ -18,7 +20,10 @@ export const HouseBuilder: React.FC = () => {
         </ul>
       </div>
       <div className="bg-gray-100 rounded-b p-4 flex justify-center">
-        <button onClick={handleAddHouse}>Add a new house</button>
+        <Button onClick={handleAddHouse}>
+          <HomeIcon className="w-5" />
+          Build a new house
+        </Button>
       </div>
     </div>
   );
