@@ -1,16 +1,19 @@
+"use client";
+
+import { HousesProvider } from "./context/houses/HousesContext";
+import { HouseBuilder } from "./components/house/HouseBuilder";
+import { HousesPreview } from "./components/house/HousesPreview";
+
 export default function Home() {
   return (
     <>
       <main>
-        <div>
-          <div>
-            <h1 className="text-3xl font-semibold text-gray-800">Welcome!</h1>
-            <p className="text-gray-700">
-              This is a simple city builder game. You can add buildings to the
-              city and see the city grow.
-            </p>
+        <HousesProvider>
+          <div className="grid grid-cols-2 gap-2">
+            <HouseBuilder />
+            <HousesPreview />
           </div>
-        </div>
+        </HousesProvider>
       </main>
     </>
   );
