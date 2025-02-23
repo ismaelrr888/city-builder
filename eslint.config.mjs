@@ -14,6 +14,7 @@ const eslintConfig = [
   {
     rules: {
       "react/display-name": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
     },
   },
 ];
