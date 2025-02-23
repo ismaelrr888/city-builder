@@ -13,12 +13,14 @@ import {
   ADD_HOUSE,
   UPDATE_HOUSE,
   SET_HOUSES,
+  DELETE_HOUSE,
 } from "./housesReducer";
 
 interface HousesContextProps {
   houses: House[];
   handleAddHouse: () => void;
   handleUpdateHouse: (id: string, numberFloors: number, color: string) => void;
+  handleDeleteHouse: (id: string) => void;
   onSerialize: () => void;
   onDeserialize: () => void;
 }
@@ -42,6 +44,10 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     []
   );
 
+  const handleDeleteHouse = useCallback((id: string) => {
+    dispatch({ type: DELETE_HOUSE, id });
+  }, []);
+
   const onSerialize = () => {
     localStorage.setItem("houses", JSON.stringify(houses));
   };
@@ -61,6 +67,7 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
         handleUpdateHouse,
         onSerialize,
         onDeserialize,
+        handleDeleteHouse,
       }}
     >
       {children}

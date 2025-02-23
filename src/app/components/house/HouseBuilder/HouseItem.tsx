@@ -1,6 +1,8 @@
 import React from "react";
 import { House } from "@/types/house";
 import { useHouses } from "@/app/context/houses/HousesContext";
+import { Button } from "@/app/ui/common/button";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 interface HouseItemProps {
   house: House;
@@ -9,7 +11,7 @@ interface HouseItemProps {
 const HouseItem: React.FC<HouseItemProps> = ({
   house: { numberFloors, color, id },
 }) => {
-  const { handleUpdateHouse } = useHouses();
+  const { handleUpdateHouse, handleDeleteHouse } = useHouses();
 
   return (
     <li>
@@ -39,6 +41,10 @@ const HouseItem: React.FC<HouseItemProps> = ({
           <option value="green">Green</option>
           <option value="orange">Orange</option>
         </select>
+
+        <Button onClick={() => handleDeleteHouse(id)}>
+          <TrashIcon className="w-5" />
+        </Button>
       </div>
     </li>
   );

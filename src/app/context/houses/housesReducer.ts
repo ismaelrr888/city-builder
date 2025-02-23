@@ -3,6 +3,7 @@ import { House } from "@/types/house";
 export const ADD_HOUSE = "ADD_HOUSE";
 export const UPDATE_HOUSE = "UPDATE_HOUSE";
 export const SET_HOUSES = "SET_HOUSES";
+export const DELETE_HOUSE = "DELETE_HOUSE";
 
 type Action =
   | { type: typeof ADD_HOUSE; house: House }
@@ -12,7 +13,8 @@ type Action =
       numberFloors: number;
       color: string;
     }
-  | { type: typeof SET_HOUSES; houses: House[] };
+  | { type: typeof SET_HOUSES; houses: House[] }
+  | { type: typeof DELETE_HOUSE; id: string };
 
 export const initialState: House[] = [];
 
@@ -28,6 +30,8 @@ export const reducer = (state: House[], action: Action): House[] => {
       );
     case SET_HOUSES:
       return action.houses;
+    case DELETE_HOUSE:
+      return state.filter((house) => house.id !== action.id);
     default:
       return state;
   }
