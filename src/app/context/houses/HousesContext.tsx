@@ -20,7 +20,7 @@ import {
 } from "./housesReducer";
 interface HousesContextProps {
   houses: House[];
-  handleAddHouse: () => void;
+  handleAddHouse: (params: { numberFloors?: number; color?: string }) => void;
   handleUpdateHouse: (id: string, numberFloors: number, color: string) => void;
   handleDeleteHouse: (id: string) => void;
   onSerialize: () => void;
@@ -34,8 +34,8 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [houses, dispatch] = useReducer(reducer, initialState);
 
-  const handleAddHouse = () => {
-    const house = { id: uuidv4(), numberFloors: 3, color: "#a65f00" };
+  const handleAddHouse = ({ numberFloors = 3, color = "#a65f00" }) => {
+    const house = { id: uuidv4(), numberFloors, color };
     dispatch({ type: ADD_HOUSE, house });
   };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { House } from "@/types/house";
 import { useHouses } from "@/app/context/houses/HousesContext";
 import { Button } from "@/app/ui/common/button";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { DocumentDuplicateIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { NumberFloors } from "./NumberFloors";
 
 interface HouseItemProps {
@@ -14,7 +14,7 @@ const HouseItem: React.FC<HouseItemProps> = ({
   house,
   handleOpenConfirmDialog,
 }) => {
-  const { handleUpdateHouse } = useHouses();
+  const { handleUpdateHouse, handleAddHouse } = useHouses();
   const { numberFloors, color, id } = house;
 
   return (
@@ -31,9 +31,14 @@ const HouseItem: React.FC<HouseItemProps> = ({
           onChange={(e) => handleUpdateHouse(id, numberFloors, e.target.value)}
         />
 
-        <Button onClick={() => handleOpenConfirmDialog(id)}>
-          <TrashIcon className="w-5" />
-        </Button>
+        <div className="flex gap-2 mt-4">
+          <Button onClick={() => handleAddHouse({ numberFloors, color })}>
+            <DocumentDuplicateIcon className="w-5" />
+          </Button>
+          <Button onClick={() => handleOpenConfirmDialog(id)}>
+            <TrashIcon className="w-5" />
+          </Button>
+        </div>
       </div>
     </li>
   );
