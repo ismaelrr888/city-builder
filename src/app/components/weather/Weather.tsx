@@ -42,8 +42,11 @@ const WeatherComponent: React.FC = () => {
   const [weather, setWeather] = useState<any>(null);
 
   const fetchWeather = async (latitude: number, longitude: number) => {
+    const weatherApi =
+      process.env.NEXT_PUBLIC_WEATHER_API || "https://api.open-meteo.com/v1";
+
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
+      `${weatherApi}/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`
     );
     const data = await response.json();
     setWeather(data.current_weather);

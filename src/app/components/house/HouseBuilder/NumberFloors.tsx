@@ -6,8 +6,8 @@ interface NumberFloorsProps {
   house: House;
 }
 
-const MIN = 1;
-const MAX = 30;
+const MIN = process.env.NEXT_PUBLIC_MIN_FLOORS || 1;
+const MAX = process.env.NEXT_PUBLIC_MAX_FLOORS || 30;
 
 export const NumberFloors: React.FC<NumberFloorsProps> = ({
   house: { numberFloors, color, id },
@@ -27,8 +27,8 @@ export const NumberFloors: React.FC<NumberFloorsProps> = ({
         className="block w-full px-3 py-2 mb-4 border rounded"
       />
       <Slider
-        max={MAX}
-        min={MIN}
+        max={+MAX}
+        min={+MIN}
         value={[numberFloors]}
         onValueChange={(value) => {
           const [numberFloors] = value;
