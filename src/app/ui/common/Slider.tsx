@@ -1,6 +1,6 @@
+import React from "react";
 import { SliderProps } from "@radix-ui/react-slider";
 import { Slider as SliderRadix } from "radix-ui";
-import React from "react";
 
 export const Slider: React.FC<SliderProps> = ({
   max,
