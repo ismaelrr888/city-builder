@@ -31,7 +31,7 @@ export const HouseBuilder: React.FC = () => {
       <div className="bg-gray-100 rounded-t p-4 mb-4 ">
         <h2 className="font-semibold">Houses List</h2>
       </div>
-      <div className="p-4">
+      <div className="p-4 overflow-y-auto custom-max-height">
         <ul>
           {houses.map((house) => (
             <HouseItem

@@ -9,3 +9,7 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.custom-max-height {
+  max-height: calc(100vh - 260px);
+}
