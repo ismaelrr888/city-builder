@@ -1,9 +1,12 @@
+"use client";
+
 import React, {
   createContext,
   useContext,
   useReducer,
   ReactNode,
   useCallback,
+  useEffect,
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { House } from "@/types/house";
@@ -12,10 +15,9 @@ import {
   initialState,
   ADD_HOUSE,
   UPDATE_HOUSE,
-  SET_HOUSES,
   DELETE_HOUSE,
+  SET_HOUSES,
 } from "./housesReducer";
-
 interface HousesContextProps {
   houses: House[];
   handleAddHouse: () => void;
@@ -58,6 +60,20 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
       dispatch({ type: SET_HOUSES, houses: JSON.parse(storedHouses) });
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onSerialize();
+    }, 600);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [houses]);
+
+  useEffect(() => {
+    onDeserialize();
+  }, []);
 
   return (
     <HousesContext.Provider
