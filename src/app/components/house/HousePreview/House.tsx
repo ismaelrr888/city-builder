@@ -19,30 +19,56 @@ const Window: React.FC = () => (
 
 const Floor: React.FC<{
   color: string;
-}> = ({ color }) => {
-  return (
-    <>
-      <div
-        className="flex justify-around p-2"
-        style={{ backgroundColor: color }}
-      >
-        <Window />
-        <Window />
-      </div>
-    </>
-  );
-};
+  onShowDialog: () => void;
+}> = ({ color, onShowDialog }) => (
+  <div
+    className="relative group focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500"
+    role="region"
+    aria-label={`Floor with color ${color}`}
+    tabIndex={0}
+  >
+    <div className="flex justify-around p-2" style={{ backgroundColor: color }}>
+      <Window />
+      <Window />
+    </div>
+    <Button
+      className="absolute top-0 right-[-16px] rounded-full p-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
+      aria-label="Adjust color"
+      onClick={onShowDialog}
+    >
+      <PaintBrushIcon className="h-3 w-3" />
+    </Button>
+  </div>
+);
 
 const Door: React.FC = () => (
   <div className="w-8 h-12 bg-white border-2 border-black self-end mt-4" />
 );
-const FirstFloor: React.FC<{ color: string }> = ({ color }) => (
+
+const FirstFloor: React.FC<{
+  color: string;
+  onShowDialog: () => void;
+}> = ({ color, onShowDialog }) => (
   <div
-    className="flex justify-around pt-2 px-2"
-    style={{ backgroundColor: color }}
+    className="relative group focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500"
+    role="region"
+    aria-label={`Floor with color ${color}`}
+    tabIndex={0}
   >
-    <Window />
-    <Door />
+    <div
+      className="flex justify-around pt-2 px-2"
+      style={{ backgroundColor: color }}
+    >
+      <Window />
+      <Door />
+    </div>
+    <Button
+      className="absolute top-0 right-[-16px] rounded-full p-1.5 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity"
+      aria-label="Adjust color"
+      onClick={onShowDialog}
+    >
+      <PaintBrushIcon className="h-3 w-3" />
+    </Button>
   </div>
 );
 
@@ -78,37 +104,35 @@ export const House: React.FC<HouseProps> = ({ house }) => {
     }
   };
 
+  const renderFloor = (floor: FloorType, index: number) => {
+    const isLastFloor = index === house.floors.length - 1;
+    return isLastFloor ? (
+      <FirstFloor
+        key={index}
+        color={floor.color}
+        onShowDialog={() => onShowDialog(floor, index)}
+      />
+    ) : (
+      <Floor
+        key={index}
+        color={floor.color}
+        onShowDialog={() => onShowDialog(floor, index)}
+      />
+    );
+  };
+
   return (
     <>
-      <div key={house.id} className="flex flex-col self-end">
+      <div
+        key={house.id}
+        className="flex flex-col self-end focus:outline-none focus:ring-2 focus:ring-blue-500"
+        role="region"
+        aria-label={`House with ${house.floors.length} floors`}
+        tabIndex={0}
+      >
         <Roof />
-
         <div className="flex flex-col w-[130px] border-2 border-black">
-          {house.floors.map((floor, index) => {
-            return index === house.floors.length - 1 ? (
-              <div key={index} className="relative group">
-                <FirstFloor color={floor.color} />
-                <Button
-                  className="absolute top-0 right-[-16px] rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                  aria-label="Adjust color"
-                  onClick={() => onShowDialog(floor, index)}
-                >
-                  <PaintBrushIcon className="h-3 w-3" />
-                </Button>
-              </div>
-            ) : (
-              <div key={index} className="relative group">
-                <Floor color={floor.color} />
-                <Button
-                  className="absolute top-0 right-[-16px] rounded-full p-1.5 opacity-0 group-hover:opacity-100 transition-opacity"
-                  aria-label="Adjust color"
-                  onClick={() => onShowDialog(floor, index)}
-                >
-                  <PaintBrushIcon className="h-3 w-3" />
-                </Button>
-              </div>
-            );
-          })}
+          {house.floors.map((floor, index) => renderFloor(floor, index))}
         </div>
       </div>
 
@@ -125,8 +149,11 @@ export const House: React.FC<HouseProps> = ({ house }) => {
         </DialogClose>
         <div className="flex flex-col justify-end gap-4 mt-4">
           <div className="flex items-center gap-4 flex-wrap">
-            <label className="block font-semibold">Color:</label>
+            <label className="block font-semibold" htmlFor="color-input">
+              Color:
+            </label>
             <input
+              id="color-input"
               type="color"
               value={newColor}
               onChange={(e) => setNewColor(e.target.value)}
