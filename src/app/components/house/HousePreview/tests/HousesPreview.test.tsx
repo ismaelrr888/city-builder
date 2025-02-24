@@ -7,6 +7,7 @@ const mockHouses = [
   { id: "2", floors: [{ color: "#ff0000" }], color: "#ff0000" },
 ];
 
+// add resolver in the jest.config.js file to use short import paths
 jest.mock("../../../../context/houses/HousesContext", () => ({
   ...jest.requireActual("../../../../context/houses/HousesContext"),
   useHouses: jest.fn(),
