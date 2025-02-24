@@ -9,7 +9,7 @@ export const Slider: React.FC<SliderProps> = ({
   onValueChange,
 }) => (
   <SliderRadix.Root
-    className="relative flex items-center select-none touch-none w-52 h-5"
+    className="relative flex items-center select-none touch-none h-5"
     value={value}
     max={max}
     min={min}
