@@ -59,6 +59,14 @@ export function SortableList<T extends BaseItem>({
         }
         setActive(null);
       }}
+      onDragMove={({ active, over }) => {
+        if (over && active.id !== over?.id) {
+          const activeIndex = items.findIndex(({ id }) => id === active.id);
+          const overIndex = items.findIndex(({ id }) => id === over.id);
+
+          onChange(arrayMove(items, activeIndex, overIndex));
+        }
+      }}
       onDragCancel={() => {
         setActive(null);
       }}
