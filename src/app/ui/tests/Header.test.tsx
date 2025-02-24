@@ -1,5 +1,26 @@
+import React from "react";
+import { render, screen } from "@/test-utils/test-utils";
+import { Header } from "../Header";
+
 describe("Header", () => {
-  it("renders without crashing", () => {
-    expect(true).toBe(true);
+  it("renders the header with the correct class name and children", () => {
+    const className = "test-class";
+    const children = "Test Header";
+
+    render(<Header className={className}>{children}</Header>);
+
+    const headerElement = screen.getByText(children);
+    expect(headerElement).toBeInTheDocument();
+    expect(headerElement).toHaveClass(className);
+  });
+
+  it("renders the header without a class name", () => {
+    const children = "Test Header";
+
+    render(<Header>{children}</Header>);
+
+    const headerElement = screen.getByText(children);
+    expect(headerElement).toBeInTheDocument();
+    expect(headerElement).not.toHaveClass();
   });
 });
