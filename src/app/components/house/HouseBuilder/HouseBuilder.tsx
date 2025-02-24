@@ -34,15 +34,6 @@ export const HouseBuilder: React.FC = () => {
         <h2 className="font-semibold">Houses List</h2>
       </div>
       <div className="p-4 overflow-y-auto custom-max-height">
-        {/* <ul>
-          {houses.map((house) => (
-            <HouseItem
-              key={house.id}
-              house={house}
-              handleOpenConfirmDialog={handleOpenConfirmDialog}
-            />
-          ))}
-        </ul> */}
         <SortableList
           items={houses}
           onChange={(houses) => {
