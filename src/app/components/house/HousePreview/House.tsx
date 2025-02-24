@@ -133,8 +133,6 @@ export const House: React.FC<HouseProps> = memo(
       );
     };
 
-    console.log("House render", house.name);
-
     return (
       <>
         <div

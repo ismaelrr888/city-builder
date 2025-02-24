@@ -4,13 +4,14 @@ import { House } from "../House";
 
 const mockHouse = {
   id: "1",
+  name: "House",
   floors: [{ color: "#a65f00" }, { color: "#ff0000" }],
   color: "#a65f00",
 };
 
 describe("House", () => {
   it("renders the house with the correct number of floors", () => {
-    render(<House house={mockHouse} />);
+    render(<House house={mockHouse} handleUpdateColorFloor={jest.fn()} />);
 
     expect(screen.getAllByRole("floor-region")).toHaveLength(
       mockHouse.floors.length
@@ -18,7 +19,7 @@ describe("House", () => {
   });
 
   it("opens the color dialog when the adjust color button is clicked", () => {
-    render(<House house={mockHouse} />);
+    render(<House house={mockHouse} handleUpdateColorFloor={jest.fn()} />);
 
     fireEvent.click(screen.getAllByLabelText("Adjust color")[0]);
 
@@ -28,7 +29,7 @@ describe("House", () => {
   });
 
   it("updates the floor color when the save button is clicked", () => {
-    render(<House house={mockHouse} />);
+    render(<House house={mockHouse} handleUpdateColorFloor={jest.fn()} />);
 
     fireEvent.click(screen.getAllByLabelText("Adjust color")[0]);
     fireEvent.change(screen.getByLabelText("Color:"), {
@@ -42,7 +43,7 @@ describe("House", () => {
   });
 
   it("closes the color dialog when the close button is clicked", () => {
-    render(<House house={mockHouse} />);
+    render(<House house={mockHouse} handleUpdateColorFloor={jest.fn()} />);
 
     fireEvent.click(screen.getAllByLabelText("Adjust color")[0]);
     fireEvent.click(screen.getByLabelText("Close"));
