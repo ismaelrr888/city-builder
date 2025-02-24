@@ -23,7 +23,7 @@ const Floor: React.FC<{
 }> = ({ color, onShowDialog }) => (
   <div
     className="relative group focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500"
-    role="region"
+    role="floor-region"
     aria-label={`Floor with color ${color}`}
     tabIndex={0}
   >
@@ -51,7 +51,7 @@ const FirstFloor: React.FC<{
 }> = ({ color, onShowDialog }) => (
   <div
     className="relative group focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-500"
-    role="region"
+    role="floor-region"
     aria-label={`Floor with color ${color}`}
     tabIndex={0}
   >
