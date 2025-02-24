@@ -73,7 +73,10 @@ const FirstFloor: React.FC<{
 );
 
 const Roof: React.FC = () => (
-  <div className="w-0 h-0 border-l-[65px] border-r-[65px] border-b-[65px] border-l-transparent border-r-transparent border-b-black" />
+  <div className="relative">
+    <div className="w-0 h-0 border-l-[65px] border-r-[65px] border-b-[65px] border-l-transparent border-r-transparent border-b-black" />
+    <div className="absolute m-auto inset-0 w-0 h-0 border-l-[62px] border-r-[62px] border-b-[62px] border-l-transparent border-r-transparent border-b-white" />
+  </div>
 );
 
 export const House: React.FC<HouseProps> = ({ house }) => {
