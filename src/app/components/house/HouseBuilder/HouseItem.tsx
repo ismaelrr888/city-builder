@@ -23,7 +23,7 @@ const HouseItem: React.FC<HouseItemProps> = ({
 
   return (
     <div role="item-region">
-      <div className="flex items-center gap-2 mb-4">
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
         <label htmlFor={`name-input-${id}`} className="text-xl font-bold">
           House -
         </label>
