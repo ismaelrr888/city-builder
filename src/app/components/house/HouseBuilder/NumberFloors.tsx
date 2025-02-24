@@ -17,8 +17,11 @@ export const NumberFloors: React.FC<NumberFloorsProps> = ({
   return (
     <div>
       <div className="flex items-center gap-2">
-        <label className="font-semibold">Floors:</label>
+        <label htmlFor={`floors-input-${id}`} className="font-semibold">
+          Floors:
+        </label>
         <input
+          id={`floors-input-${id}`}
           type="number"
           name="floors"
           value={floors.length}
@@ -28,6 +31,7 @@ export const NumberFloors: React.FC<NumberFloorsProps> = ({
             handleUpdateHouse(id, parseInt(e.target.value), color)
           }
           className="block w-16 px-3 py-2 border rounded"
+          aria-labelledby={`floors-input-${id}`}
         />
       </div>
       <Slider
@@ -38,6 +42,7 @@ export const NumberFloors: React.FC<NumberFloorsProps> = ({
           const [numberFloors] = value;
           handleUpdateHouse(id, numberFloors, color);
         }}
+        aria-labelledby={`floors-slider-${id}`}
       />
     </div>
   );
