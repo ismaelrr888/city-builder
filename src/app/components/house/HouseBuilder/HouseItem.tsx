@@ -3,22 +3,23 @@ import { House } from "@/types/house";
 import { Button } from "@/app/ui/common/button";
 import { DocumentDuplicateIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { NumberFloors } from "./NumberFloors";
-import { useHouses } from "@/app/context/houses/HousesContext";
+import isEqual from "lodash/isEqual";
 
 interface HouseItemProps {
   house: House;
   handleOpenConfirmDialog: (id: string) => void;
+  handleUpdateColorHouse: (id: string, color: string) => void;
+  handleDuplicateHouse: (house: House) => void;
+  handleUpdateNameHouse: (id: string, name: string) => void;
 }
 
 const HouseItem: React.FC<HouseItemProps> = ({
   house,
   handleOpenConfirmDialog,
+  handleUpdateColorHouse,
+  handleDuplicateHouse,
+  handleUpdateNameHouse,
 }) => {
-  const {
-    handleUpdateColorHouse,
-    handleDuplicateHouse,
-    handleUpdateNameHouse,
-  } = useHouses();
   const { id, color, name } = house;
 
   return (
@@ -71,4 +72,8 @@ const HouseItem: React.FC<HouseItemProps> = ({
   );
 };
 
-export default React.memo(HouseItem);
+const areEqual = (prevProps: HouseItemProps, nextProps: HouseItemProps) => {
+  return isEqual(prevProps.house, nextProps.house);
+};
+
+export default React.memo(HouseItem, areEqual);

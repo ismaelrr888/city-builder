@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useHouses } from "@/app/context/houses/HousesContext";
+import { useState, memo } from "react";
 import { Button } from "@/app/ui/common/button";
 import {
   ConfirmDialog,
@@ -8,9 +7,15 @@ import {
 } from "@/app/ui/common/Dialog";
 import { Floor as FloorType, House as HoseType } from "@/types/house";
 import { PaintBrushIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import isEqual from "lodash/isEqual";
 
 interface HouseProps {
   house: HoseType;
+  handleUpdateColorFloor: (
+    id: string,
+    color: string,
+    floorIndex: number
+  ) => void;
 }
 
 const Window: React.FC = () => (
@@ -79,99 +84,107 @@ const Roof: React.FC = () => (
   </div>
 );
 
-export const House: React.FC<HouseProps> = ({ house }) => {
-  const { handleUpdateColorFloor } = useHouses();
-  const [showDialog, setShowDialog] = useState(false);
-  const [selectedFloor, setSelectedFloor] = useState<FloorType>();
-  const [floorIndex, setFloorIndex] = useState<number>();
-  const [newColor, setNewColor] = useState<string>();
-
-  const onShowDialog = (floor: FloorType, floorIndex: number) => {
-    setShowDialog(true);
-    setSelectedFloor(floor);
-    setFloorIndex(floorIndex);
-    setNewColor(floor.color);
-  };
-
-  const onCloseDialog = () => {
-    setShowDialog(false);
-    setSelectedFloor(undefined);
-    setFloorIndex(undefined);
-    setNewColor("");
-  };
-
-  const onUpdateFloorColor = () => {
-    if (selectedFloor && floorIndex !== undefined && newColor) {
-      handleUpdateColorFloor(house.id, newColor, floorIndex);
-      onCloseDialog();
-    }
-  };
-
-  const renderFloor = (floor: FloorType, index: number) => {
-    const isLastFloor = index === house.floors.length - 1;
-    return isLastFloor ? (
-      <FirstFloor
-        key={index}
-        color={floor.color}
-        onShowDialog={() => onShowDialog(floor, index)}
-      />
-    ) : (
-      <Floor
-        key={index}
-        color={floor.color}
-        onShowDialog={() => onShowDialog(floor, index)}
-      />
-    );
-  };
-
-  return (
-    <>
-      <div
-        key={house.id}
-        className="flex flex-col self-end focus:outline-none focus:ring-2 focus:ring-blue-500"
-        role="region"
-        aria-label={`House with ${house.floors.length} floors`}
-        tabIndex={0}
-      >
-        <Roof />
-        <div className="flex flex-col w-[130px] border-2 border-black">
-          {house.floors.map((floor, index) => renderFloor(floor, index))}
-        </div>
-      </div>
-
-      <ConfirmDialog open={showDialog} onOpenChange={setShowDialog}>
-        <DialogTitle>Update the color of the floor</DialogTitle>
-        <DialogClose>
-          <Button
-            className="absolute top-2 right-2 rounded-full p-1.5"
-            aria-label="Close"
-            onClick={onCloseDialog}
-          >
-            <XMarkIcon className="h-5 w-5" />
-          </Button>
-        </DialogClose>
-        <div className="flex flex-col justify-end gap-4 mt-4">
-          <div className="flex items-center gap-4 flex-wrap">
-            <label className="block font-semibold" htmlFor="color-input">
-              Color:
-            </label>
-            <input
-              id="color-input"
-              type="color"
-              value={newColor}
-              onChange={(e) => setNewColor(e.target.value)}
-            />
-          </div>
-          <div className="flex justify-end gap-4 mt-4">
-            <Button
-              onClick={onUpdateFloorColor}
-              className="bg-green-500 text-slate-50"
-            >
-              Save
-            </Button>
-          </div>
-        </div>
-      </ConfirmDialog>
-    </>
-  );
+const areEqual = (prevProps: HouseProps, nextProps: HouseProps) => {
+  return isEqual(prevProps.house, nextProps.house);
 };
+
+export const House: React.FC<HouseProps> = memo(
+  ({ house, handleUpdateColorFloor }) => {
+    const [showDialog, setShowDialog] = useState(false);
+    const [selectedFloor, setSelectedFloor] = useState<FloorType>();
+    const [floorIndex, setFloorIndex] = useState<number>();
+    const [newColor, setNewColor] = useState<string>();
+
+    const onShowDialog = (floor: FloorType, floorIndex: number) => {
+      setShowDialog(true);
+      setSelectedFloor(floor);
+      setFloorIndex(floorIndex);
+      setNewColor(floor.color);
+    };
+
+    const onCloseDialog = () => {
+      setShowDialog(false);
+      setSelectedFloor(undefined);
+      setFloorIndex(undefined);
+      setNewColor("");
+    };
+
+    const onUpdateFloorColor = () => {
+      if (selectedFloor && floorIndex !== undefined && newColor) {
+        handleUpdateColorFloor(house.id, newColor, floorIndex);
+        onCloseDialog();
+      }
+    };
+
+    const renderFloor = (floor: FloorType, index: number) => {
+      const isLastFloor = index === house.floors.length - 1;
+      return isLastFloor ? (
+        <FirstFloor
+          key={index}
+          color={floor.color}
+          onShowDialog={() => onShowDialog(floor, index)}
+        />
+      ) : (
+        <Floor
+          key={index}
+          color={floor.color}
+          onShowDialog={() => onShowDialog(floor, index)}
+        />
+      );
+    };
+
+    console.log("House render", house.name);
+
+    return (
+      <>
+        <div
+          key={house.id}
+          className="flex flex-col self-end focus:outline-none focus:ring-2 focus:ring-blue-500"
+          role="region"
+          aria-label={`House with ${house.floors.length} floors`}
+          tabIndex={0}
+        >
+          <Roof />
+          <div className="flex flex-col w-[130px] border-2 border-black">
+            {house.floors.map((floor, index) => renderFloor(floor, index))}
+          </div>
+        </div>
+
+        <ConfirmDialog open={showDialog} onOpenChange={setShowDialog}>
+          <DialogTitle>Update the color of the floor</DialogTitle>
+          <DialogClose>
+            <Button
+              className="absolute top-2 right-2 rounded-full p-1.5"
+              aria-label="Close"
+              onClick={onCloseDialog}
+            >
+              <XMarkIcon className="h-5 w-5" />
+            </Button>
+          </DialogClose>
+          <div className="flex flex-col justify-end gap-4 mt-4">
+            <div className="flex items-center gap-4 flex-wrap">
+              <label className="block font-semibold" htmlFor="color-input">
+                Color:
+              </label>
+              <input
+                id="color-input"
+                type="color"
+                value={newColor}
+                onChange={(e) => setNewColor(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-end gap-4 mt-4">
+              <Button
+                onClick={onUpdateFloorColor}
+                className="bg-green-500 text-slate-50"
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        </ConfirmDialog>
+      </>
+    );
+  },
+  areEqual
+);

@@ -9,8 +9,15 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { SortableList } from "./SortableList";
 
 export const HouseBuilder: React.FC = () => {
-  const { houses, handleAddHouse, handleDeleteHouse, handleSetHouses } =
-    useHouses();
+  const {
+    houses,
+    handleAddHouse,
+    handleDeleteHouse,
+    handleSetHouses,
+    handleUpdateColorHouse,
+    handleDuplicateHouse,
+    handleUpdateNameHouse,
+  } = useHouses();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [houseId, setHouseId] = useState<string>("");
 
@@ -45,6 +52,9 @@ export const HouseBuilder: React.FC = () => {
                 key={item.id}
                 house={item}
                 handleOpenConfirmDialog={handleOpenConfirmDialog}
+                handleUpdateColorHouse={handleUpdateColorHouse}
+                handleDuplicateHouse={handleDuplicateHouse}
+                handleUpdateNameHouse={handleUpdateNameHouse}
               />
               <SortableList.DragHandle />
             </SortableList.Item>
