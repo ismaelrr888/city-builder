@@ -29,11 +29,11 @@ export const HouseBuilder: React.FC = () => {
   };
 
   return (
-    <div className="rounded shadow-md flex flex-col self-start md:sticky md:top-8">
+    <div className="rounded shadow-md flex flex-col self-start md:sticky md:top-8 max-w-[516px]">
       <div className="bg-gray-100 rounded-t p-4 mb-4 ">
         <h2 className="font-semibold">Houses List</h2>
       </div>
-      <div className="p-4 overflow-y-auto custom-max-height">
+      <div className="p-4 overflow-y-auto overflow-x-hidden custom-max-height">
         <SortableList
           items={houses}
           onChange={(houses) => {
