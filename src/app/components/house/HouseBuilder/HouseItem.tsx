@@ -18,7 +18,7 @@ const HouseItem: React.FC<HouseItemProps> = ({
   const { id, color } = house;
 
   return (
-    <div>
+    <div role="item-region">
       <h2 className="text-xl font-bold mb-4">House - </h2>
 
       <div className="flex items-center justify-between gap-4 flex-wrap">
