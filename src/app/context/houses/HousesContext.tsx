@@ -45,28 +45,26 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [houses, dispatch] = useReducer(reducer, initialState);
 
-  // #a65f00
-  const handleAddHouse = () => {
+  const handleAddHouse = useCallback(() => {
     dispatch({
       type: ADD_HOUSE,
       house: { id: uuidv4(), floors: [{ color: "#a65f00" }], color: "#a65f00" },
     });
-  };
+  }, []);
 
-  const handleDuplicateHouse = (house: House) => {
+  const handleDuplicateHouse = useCallback((house: House) => {
     dispatch({
       type: DUPLICATE_HOUSE,
       house: { ...house, id: uuidv4() },
     });
-  };
+  }, []);
 
-  const handleUpdateColorFloor = (
-    id: string,
-    color: string,
-    indexFloor: number
-  ) => {
-    dispatch({ type: UPDATE_COLOR_FLOOR, id, color, indexFloor });
-  };
+  const handleUpdateColorFloor = useCallback(
+    (id: string, color: string, indexFloor: number) => {
+      dispatch({ type: UPDATE_COLOR_FLOOR, id, color, indexFloor });
+    },
+    []
+  );
 
   const handleUpdateColorHouse = useCallback((id: string, color: string) => {
     dispatch({ type: UPDATE_COLOR_HOUSE, id, color });
@@ -83,16 +81,16 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     dispatch({ type: DELETE_HOUSE, id });
   }, []);
 
-  const onSerialize = () => {
+  const onSerialize = useCallback(() => {
     localStorage.setItem("houses", JSON.stringify(houses));
-  };
+  }, [houses]);
 
-  const onDeserialize = () => {
+  const onDeserialize = useCallback(() => {
     const storedHouses = localStorage.getItem("houses");
     if (storedHouses) {
       dispatch({ type: SET_HOUSES, houses: JSON.parse(storedHouses) });
     }
-  };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -102,11 +100,11 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [houses]);
+  }, [houses, onSerialize]);
 
   useEffect(() => {
     onDeserialize();
-  }, []);
+  }, [onDeserialize]);
 
   return (
     <HousesContext.Provider
