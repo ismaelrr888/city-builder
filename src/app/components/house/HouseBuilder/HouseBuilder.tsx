@@ -29,7 +29,7 @@ export const HouseBuilder: React.FC = () => {
   };
 
   return (
-    <div className="rounded shadow-md flex flex-col self-start md:sticky md:top-8 max-w-[516px]">
+    <div className="rounded shadow-md flex flex-col self-start md:sticky md:top-8 md:max-w-[516px] sm:w-full">
       <div className="bg-gray-100 rounded-t p-4 mb-4 ">
         <h2 className="font-semibold">Houses List</h2>
       </div>
