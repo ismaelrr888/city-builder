@@ -38,7 +38,6 @@ const HouseItem: React.FC<HouseItemProps> = ({
               value={color}
               onChange={(e) => handleUpdateColorHouse(id, e.target.value)}
               aria-labelledby={`color-input-${id}`}
-              className="block w-16 px-3 py-2 border rounded"
             />
           </div>
 
