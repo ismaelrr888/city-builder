@@ -100,7 +100,7 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     return () => {
       clearTimeout(timer);
     };
-  }, [houses, onSerialize]);
+  }, [onSerialize]);
 
   useEffect(() => {
     onDeserialize();
