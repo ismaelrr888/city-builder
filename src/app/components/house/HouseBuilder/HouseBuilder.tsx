@@ -6,9 +6,11 @@ import { HomeIcon } from "@heroicons/react/20/solid";
 import { ConfirmDialog, DialogClose } from "@/app/ui/common/Dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { SortableList } from "./SortableList";
 
 export const HouseBuilder: React.FC = () => {
-  const { houses, handleAddHouse, handleDeleteHouse } = useHouses();
+  const { houses, handleAddHouse, handleDeleteHouse, handleSetHouses } =
+    useHouses();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [houseId, setHouseId] = useState<string>("");
 
@@ -32,7 +34,7 @@ export const HouseBuilder: React.FC = () => {
         <h2 className="font-semibold">Houses List</h2>
       </div>
       <div className="p-4 overflow-y-auto custom-max-height">
-        <ul>
+        {/* <ul>
           {houses.map((house) => (
             <HouseItem
               key={house.id}
@@ -40,7 +42,23 @@ export const HouseBuilder: React.FC = () => {
               handleOpenConfirmDialog={handleOpenConfirmDialog}
             />
           ))}
-        </ul>
+        </ul> */}
+        <SortableList
+          items={houses}
+          onChange={(houses) => {
+            handleSetHouses(houses);
+          }}
+          renderItem={(item) => (
+            <SortableList.Item id={item.id}>
+              <HouseItem
+                key={item.id}
+                house={item}
+                handleOpenConfirmDialog={handleOpenConfirmDialog}
+              />
+              <SortableList.DragHandle />
+            </SortableList.Item>
+          )}
+        />
       </div>
       <div className="bg-gray-100 rounded-b p-4 flex justify-center">
         <Button onClick={handleAddHouse}>

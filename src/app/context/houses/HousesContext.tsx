@@ -24,6 +24,7 @@ import {
 
 interface HousesContextProps {
   houses: House[];
+  handleSetHouses: (houses: House[]) => void;
   handleAddHouse: () => void;
   handleUpdateHouse: (id: string, numberFloors: number, color: string) => void;
   handleDeleteHouse: (id: string) => void;
@@ -81,6 +82,10 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
     dispatch({ type: DELETE_HOUSE, id });
   }, []);
 
+  const handleSetHouses = useCallback((houses: House[]) => {
+    dispatch({ type: SET_HOUSES, houses });
+  }, []);
+
   const onSerialize = useCallback(() => {
     localStorage.setItem("houses", JSON.stringify(houses));
   }, [houses]);
@@ -118,6 +123,7 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
         handleUpdateColorHouse,
         handleDuplicateHouse,
         handleUpdateColorFloor,
+        handleSetHouses,
       }}
     >
       {children}
