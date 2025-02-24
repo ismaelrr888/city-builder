@@ -20,6 +20,7 @@ import {
   UPDATE_COLOR_HOUSE,
   DUPLICATE_HOUSE,
   UPDATE_COLOR_FLOOR,
+  UPDATE_NAME_HOUSE,
 } from "./housesReducer";
 
 interface HousesContextProps {
@@ -29,6 +30,7 @@ interface HousesContextProps {
   handleUpdateHouse: (id: string, numberFloors: number, color: string) => void;
   handleDeleteHouse: (id: string) => void;
   handleUpdateColorHouse: (id: string, color: string) => void;
+  handleUpdateNameHouse: (id: string, name: string) => void;
   handleDuplicateHouse: (house: House) => void;
   handleUpdateColorFloor: (
     id: string,
@@ -49,7 +51,12 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
   const handleAddHouse = useCallback(() => {
     dispatch({
       type: ADD_HOUSE,
-      house: { id: uuidv4(), floors: [{ color: "#a65f00" }], color: "#a65f00" },
+      house: {
+        id: uuidv4(),
+        name: "",
+        floors: [{ color: "#a65f00" }],
+        color: "#a65f00",
+      },
     });
   }, []);
 
@@ -69,6 +76,10 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
 
   const handleUpdateColorHouse = useCallback((id: string, color: string) => {
     dispatch({ type: UPDATE_COLOR_HOUSE, id, color });
+  }, []);
+
+  const handleUpdateNameHouse = useCallback((id: string, name: string) => {
+    dispatch({ type: UPDATE_NAME_HOUSE, id, name });
   }, []);
 
   const handleUpdateHouse = useCallback(
@@ -121,6 +132,7 @@ export const HousesProvider: React.FC<{ children: ReactNode }> = ({
         onDeserialize,
         handleDeleteHouse,
         handleUpdateColorHouse,
+        handleUpdateNameHouse,
         handleDuplicateHouse,
         handleUpdateColorFloor,
         handleSetHouses,

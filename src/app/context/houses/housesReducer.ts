@@ -7,6 +7,7 @@ export const DELETE_HOUSE = "DELETE_HOUSE";
 export const UPDATE_COLOR_HOUSE = "UPDATE_COLOR_HOUSE";
 export const DUPLICATE_HOUSE = "DUPLICATE_HOUSE";
 export const UPDATE_COLOR_FLOOR = "UPDATE_COLOR_FLOOR";
+export const UPDATE_NAME_HOUSE = "UPDATE_NAME_HOUSE";
 
 type Action =
   | { type: typeof ADD_HOUSE; house: House }
@@ -19,6 +20,7 @@ type Action =
   | { type: typeof SET_HOUSES; houses: House[] }
   | { type: typeof DELETE_HOUSE; id: string }
   | { type: typeof UPDATE_COLOR_HOUSE; id: string; color: string }
+  | { type: typeof UPDATE_NAME_HOUSE; id: string; name: string }
   | { type: typeof DUPLICATE_HOUSE; house: House }
   | {
       type: typeof UPDATE_COLOR_FLOOR;
@@ -69,6 +71,10 @@ export const reducer = (state: House[], action: Action): House[] => {
     case UPDATE_COLOR_HOUSE:
       return state.map((house) =>
         house.id === action.id ? { ...house, color: action.color } : house
+      );
+    case UPDATE_NAME_HOUSE:
+      return state.map((house) =>
+        house.id === action.id ? { ...house, name: action.name } : house
       );
     case DUPLICATE_HOUSE:
       return [...state, action.house];

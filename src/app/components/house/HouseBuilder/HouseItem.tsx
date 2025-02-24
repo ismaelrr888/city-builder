@@ -14,13 +14,28 @@ const HouseItem: React.FC<HouseItemProps> = ({
   house,
   handleOpenConfirmDialog,
 }) => {
-  const { handleUpdateColorHouse, handleDuplicateHouse } = useHouses();
-  const { id, color } = house;
+  const {
+    handleUpdateColorHouse,
+    handleDuplicateHouse,
+    handleUpdateNameHouse,
+  } = useHouses();
+  const { id, color, name } = house;
 
   return (
     <div role="item-region">
-      <h2 className="text-xl font-bold mb-4">House - </h2>
-
+      <div className="flex items-center gap-2 mb-4">
+        <label htmlFor={`name-input-${id}`} className="text-xl font-bold">
+          House -
+        </label>
+        <input
+          id={`name-input-${id}`}
+          type="text"
+          value={name}
+          onChange={(e) => handleUpdateNameHouse(id, e.target.value)}
+          aria-labelledby={`color-input-${id}`}
+          className="block px-3 py-2 border rounded"
+        />
+      </div>
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-4 flex-wrap">
           <NumberFloors house={house} />
