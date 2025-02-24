@@ -1,14 +1,9 @@
 import { render, screen, fireEvent } from "@/test-utils/test-utils";
-import { useHouses } from "@/app/context/houses/HousesContext";
 import HouseItem from "../HouseItem";
-
-jest.mock("../../../../context/houses/HousesContext", () => ({
-  ...jest.requireActual("../../../../context/houses/HousesContext"),
-  useHouses: jest.fn(),
-}));
 
 const mockHouse = {
   id: "1",
+  name: "House",
   floors: [{ color: "#a65f00" }],
   color: "#a65f00",
 };
@@ -17,19 +12,16 @@ describe("HouseItem", () => {
   const handleUpdateColorHouse = jest.fn();
   const handleDuplicateHouse = jest.fn();
   const handleOpenConfirmDialog = jest.fn();
-
-  beforeEach(() => {
-    (useHouses as jest.Mock).mockReturnValue({
-      handleUpdateColorHouse,
-      handleDuplicateHouse,
-    });
-  });
+  const handleUpdateNameHouse = jest.fn();
 
   it("renders the house item component", () => {
     render(
       <HouseItem
         house={mockHouse}
         handleOpenConfirmDialog={handleOpenConfirmDialog}
+        handleUpdateColorHouse={handleUpdateColorHouse}
+        handleDuplicateHouse={handleDuplicateHouse}
+        handleUpdateNameHouse={handleUpdateNameHouse}
       />
     );
 
@@ -49,6 +41,9 @@ describe("HouseItem", () => {
       <HouseItem
         house={mockHouse}
         handleOpenConfirmDialog={handleOpenConfirmDialog}
+        handleUpdateColorHouse={handleUpdateColorHouse}
+        handleDuplicateHouse={handleDuplicateHouse}
+        handleUpdateNameHouse={handleUpdateNameHouse}
       />
     );
 
@@ -63,6 +58,9 @@ describe("HouseItem", () => {
       <HouseItem
         house={mockHouse}
         handleOpenConfirmDialog={handleOpenConfirmDialog}
+        handleUpdateColorHouse={handleUpdateColorHouse}
+        handleDuplicateHouse={handleDuplicateHouse}
+        handleUpdateNameHouse={handleUpdateNameHouse}
       />
     );
 
